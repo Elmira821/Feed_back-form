@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Review</title>
+</head>
+<body>
+    <form action="/", method="POST"> {% comment %} form default type is GET method {% endcomment %}
+        {% csrf_token %}    {% comment %} with this token, attackers won't be able to send fake request to our server. {% endcomment %}
+        <label for="username">Your name</label>
+        <input id="username" name="username" type="text">
+        <button>Send</button>    {% comment %}  button default type is submit, so <button type "submit"> {% endcomment %}
+    </form>
+</body>
+</html>
+
