@@ -1,36 +1,17 @@
-{% load static %}
+{% extends "reviews/base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Review</title>
-    <link rel="stylesheet" href="{% static "reviews/style.css" %}">
-  </head>
-  <body>
-    <form action="/" , method="POST">
-      {% comment %} form default type is GET method {% endcomment %} 
+{%block title%}Your Review{%endblock%}
+
+
+{%block content%}
+    <form action="/" , method="POST"> {% comment %} form default type is GET method {% endcomment %} 
       {% csrf_token %} {% comment %} with this token, attackers won't be able to send fake request to our server. {%endcomment%}
-    {% for field in form %}   {% comment %} This loops automatically through all the areas that we want to render. so no repeated html code like below. {% endcomment %}
+      {% for field in form %}   {% comment %} This loops automatically through all the areas that we want to render. so no repeated html code like below. {% endcomment %}
       <div class="form-control {%if field.errors%} errors {% endif %}">
         {{field.label_tag}} 
         {{field}}
         {{field.errors}}
       </div>
     {%endfor%}
-      {% comment %} <div class="form-control {%if form.review_text.errors%} errors {% endif %}">
-        {{form.review_text.label_tag}} 
-        {{form.review_text}}
-        {{form.review_text.errors}}
-      </div>
-      <div class="form-control {%if form.rating.errors%} errors {% endif %}">
-        {{form.rating.label_tag}} 
-        {{form.rating}}
-        {{form.rating.errors}}
-      </div> {% endcomment %}
-      <button>Send</button> {% comment %} button default type is submit, so
-      <button type "submit"> {% endcomment %}
-    </form>
-  </body>
-</html>
+      <button type ="submit">Send</button> 
+  {%endblock%}
