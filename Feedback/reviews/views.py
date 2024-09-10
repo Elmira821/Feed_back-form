@@ -5,6 +5,7 @@ from reviews.forms import ReviewForm
 from reviews.models import Review
 from django.views import View
 from django.views.generic.base import TemplateView
+from .models import Review
 
 # Create your views here.
 
@@ -42,4 +43,21 @@ class ThankYouView(TemplateView):
         return context
 
 
+class ReviewListView(TemplateView):
+    template_name = "reviews/review_list.html"
+    
+    def get_context_data(self, **kwargs):
+        context=  super().get_context_data(**kwargs)
+        reviews = Review.objects.all()
+        context["reviews"] = reviews
+        return context
 
+class ReviewDetailView(TemplateView):
+    template_name = "reviews/review_detail.html"
+    
+    def get_context_data(self, **kwargs):
+        context=  super().get_context_data(**kwargs)
+        review_id = kwargs["id"]
+        selected_review = Review.objects.get(pk=review_id)
+        context["review"] = selected_review
+        return context
