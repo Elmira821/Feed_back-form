@@ -6,17 +6,22 @@ from reviews.models import Review
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormView
 from .models import Review
 
 # Create your views here.
 
-class ReviewView(View):
-    def get (self, request):
-        form = ReviewForm()
+class ReviewView(FormView):
+    form_class = ReviewForm
+    template_name = "reviews/review.html"
+   
     
-        return render (request, "reviews/review.html",{
-            "form" : form
-        })
+    # def get (self, request):
+    #     form = ReviewForm()
+    
+    #     return render (request, "reviews/review.html",{
+    #         "form" : form
+    #     })
     
        
     def post(self, request):
