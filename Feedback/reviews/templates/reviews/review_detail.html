@@ -3,7 +3,7 @@
 {%block title%}All Review{%endblock%}
 
 {%block content%}
-    <h1>{{review.user_name}}</h1>    {% comment %} instead of lower case model name, we can also use object.  it works too {% endcomment %}
-    <p>Rating: {{review.rating}} </p>
+    <h1>{{object.user_name}}</h1>    {% comment %} instead of lower case model name(review), we can also use (object).  it works too {% endcomment %}
+    <p>Rating: {{review.rating}} </p> 
     <p> {{review.review_text}}</p>    
 {%endblock%}
