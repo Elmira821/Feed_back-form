@@ -1,9 +1,20 @@
-{% extends "reviews/base.html" %}
+{% extends "reviews/base.html" %} 
 
-{%block title%}All Review{%endblock%}
+{%block title%}All Review{%endblock%} 
 
 {%block content%}
-    <h1>{{object.user_name}}</h1>    {% comment %} instead of lower case model name(review), we can also use (object).  it works too {% endcomment %}
-    <p>Rating: {{review.rating}} </p> 
-    <p> {{review.review_text}}</p>    
+  <h1>{{object.user_name}}</h1>
+{% comment %} instead of lower case model name(review), we can also use
+(object). it works too {% endcomment %}
+    <p>Rating: {{review.rating}}</p>
+    <p>{{review.review_text}}</p>
+    {% if is_favorite %}
+      <p>This is my favorite!</p>
+    {% else %}
+      <form action="/reviews/favorite", method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="review_id" value = "{{ review.id }}">
+        <button>Favorite</button>
+      </form>
+    {% endif %}
 {%endblock%}

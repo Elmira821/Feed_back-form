@@ -69,6 +69,14 @@ class ReviewListView(ListView):
 class ReviewDetailView(DetailView):
     template_name = "reviews/review_detail.html"
     model = Review
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loaded_review = self.object 
+        request = self.request
+        favorite_id = request.session.get("favorite_review")
+        context["is_favorite"] = favorite_id == str(loaded_review.id)
+        return context
 
     # def get_context_data(self, **kwargs):
     #     context=  super().get_context_data(**kwargs)
@@ -76,3 +84,10 @@ class ReviewDetailView(DetailView):
     #     selected_review = Review.objects.get(pk=review_id)
     #     context["review"] = selected_review
     #     return context                                            This is when we used Template View
+
+
+class AddFavoriteView(View):
+    def post(self, request):
+        review_id = request.POST["review_id"]
+        request.session["favorite_review"] = review_id     #store string, boolean... simple data, do not store object in session
+        return HttpResponseRedirect ("/reviews/" + review_id)
